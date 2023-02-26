@@ -1,6 +1,5 @@
 import { ReactNode, useState } from 'react';
 import * as React from 'react';
-
 import { Container, Flex, Stack } from '@mantine/core';
 import { DragDropContext as DragDropContext1, DragDropContextProps, type OnDragEndResponder } from 'react-beautiful-dnd';
 
