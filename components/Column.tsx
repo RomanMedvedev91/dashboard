@@ -34,7 +34,7 @@ export const Column = ({ column, tasks }: IColumnProps) => (
             pt="md"
             sx={(theme) => ({
               backgroundColor: snapshot.isDraggingOver ? (
-                theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[1]) : 'white',
+                theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[1]) : undefined,
               flexGrow: 1,
               minHeight: 100,
             })}
