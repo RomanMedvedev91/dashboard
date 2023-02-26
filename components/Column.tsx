@@ -28,8 +28,7 @@ export const Column = ({ column, tasks }: IColumnProps) => (
       {column.title}
     </Title>
     <Droppable droppableId={column.id}>
-      {(provided, snapshot) => (
-        <>
+      {(provided?, snapshot?) => (provided &&
           <Stack
             ref={provided.innerRef}
             {...provided.droppableProps}
@@ -41,12 +40,11 @@ export const Column = ({ column, tasks }: IColumnProps) => (
               minHeight: 100,
             })}
           >
-            {tasks.map((task, index) => (
+            {tasks && tasks.map((task, index) => (
               <Task key={task.id} task={task} index={index} />
             ))}
             {provided.placeholder}
           </Stack>
-        </>
       )}
     </Droppable>
   </Card>
