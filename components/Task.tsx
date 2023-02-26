@@ -1,11 +1,13 @@
 import { Card, Group, Title, Text } from '@mantine/core';
-import { Draggable } from 'react-beautiful-dnd';
+import { Draggable as Draggable1, DraggableProps } from 'react-beautiful-dnd';
 import { type TaskType } from '../initalData';
 
 export interface ITaskProps {
   index: number;
   task: TaskType;
 }
+// to avoid Type error: 'Draggable' cannot be used as a JSX component
+const Draggable = Draggable1 as React.ComponentClass<DraggableProps>;
 
 export const Task = ({ index, task }: ITaskProps) => (
     <Draggable

@@ -1,6 +1,8 @@
 import { ReactNode, useState } from 'react';
+import * as React from 'react';
+
 import { Container, Flex, Stack } from '@mantine/core';
-import { DragDropContext, type OnDragEndResponder } from 'react-beautiful-dnd';
+import { DragDropContext as DragDropContext1, DragDropContextProps, type OnDragEndResponder } from 'react-beautiful-dnd';
 
 import { Column } from './Column';
 import { DataType, initialData } from '../initalData';
@@ -81,6 +83,8 @@ export const DragAndDropList = () => {
     };
     setState(newState);
   };
+// to avoid Type error: 'Draggable' cannot be used as a JSX component
+  const DragDropContext = DragDropContext1 as React.ComponentClass<DragDropContextProps>;
 
   return (
     <Container size="xl">

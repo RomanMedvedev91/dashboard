@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Droppable as Droppable1, DroppableProps } from 'react-beautiful-dnd';
 import { Card, Stack, Title } from '@mantine/core';
-// import { Droppable } from 'react-beautiful-dnd';
 import { Task } from './Task';
 import { type TaskType, type ColumnType } from '../initalData';
 
