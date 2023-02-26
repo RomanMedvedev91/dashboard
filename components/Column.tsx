@@ -1,5 +1,7 @@
+import * as React from 'react';
+import { Droppable as Droppable1, DroppableProps } from 'react-beautiful-dnd';
 import { Card, Stack, Title } from '@mantine/core';
-import { Droppable } from 'react-beautiful-dnd';
+// import { Droppable } from 'react-beautiful-dnd';
 import { Task } from './Task';
 import { type TaskType, type ColumnType } from '../initalData';
 
@@ -8,6 +10,9 @@ export interface IColumnProps {
   tasks: TaskType[];
   isDropDisabled?: boolean;
 }
+
+// to avoid Type error: 'Draggable' cannot be used as a JSX component
+const Droppable = Droppable1 as React.ComponentClass<DroppableProps>;
 
 export const Column = ({ column, tasks }: IColumnProps) => (
   <Card
