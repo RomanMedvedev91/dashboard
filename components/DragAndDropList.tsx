@@ -1,11 +1,9 @@
 import { ReactNode, useState } from 'react';
-import { Grid } from '@mantine/core';
-// import { useListState } from '@mantine/hooks';
+import { Container, Flex, Stack } from '@mantine/core';
 import { DragDropContext, type OnDragEndResponder } from 'react-beautiful-dnd';
-// import { Group, Title, Text, Card, Stack } from '@mantine/core';
 
 import { Column } from './Column';
-import { initialData, TaskType } from '../initalData';
+import { DataType, initialData } from '../initalData';
 
 export interface IDragAndDropListProps {
   data: {
@@ -17,13 +15,14 @@ export interface IDragAndDropListProps {
 }
 
 export const DragAndDropList = () => {
-  // const [state, handlers] = useListState(data);
-  const [state, setState] = useState(initialData);
+  const [state, setState] = useState<DataType>(initialData);
 
-  const onDragEnd: OnDragEndResponder = (result) => {
+  const onDragEnd: OnDragEndResponder = result => {
     const { destination, source, draggableId } = result;
 
-    if (!destination) return;
+    if (!destination) {
+      return;
+    }
 
     if (
       destination.droppableId === source.droppableId &&
@@ -32,17 +31,19 @@ export const DragAndDropList = () => {
       return;
     }
 
-    const start = state.columns[source.droppableId as keyof typeof initialData.columns];
-    const finish = state.columns[destination.droppableId as keyof typeof initialData.columns];
+    const start = state.columns[source.droppableId];
+    const finish = state.columns[destination.droppableId];
 
     if (start === finish) {
       const newTaskIds = Array.from(start.taskIds);
       newTaskIds.splice(source.index, 1);
       newTaskIds.splice(destination.index, 0, draggableId);
+
       const newColumn = {
         ...start,
         taskIds: newTaskIds,
       };
+
       const newState = {
         ...state,
         columns: {
@@ -50,10 +51,12 @@ export const DragAndDropList = () => {
           [newColumn.id]: newColumn,
         },
       };
+
       setState(newState);
+      return;
     }
 
-    // move between columns
+    // Moving from one list to another
     const startTaskIds = Array.from(start.taskIds);
     startTaskIds.splice(source.index, 1);
     const newStart = {
@@ -80,30 +83,38 @@ export const DragAndDropList = () => {
   };
 
   return (
-    <DragDropContext
-      onDragEnd={onDragEnd}
-      // onDragEnd={({ destination, source }) =>
-      // handlers.reorder({ from: source.index, to: destination?.index || 0 })}
-    >
-      <Grid>
-      {state.columnOrder.map(columnId => {
-        const column = state.columns[columnId as keyof typeof initialData.columns];
-        const tasks: TaskType[] = column.taskIds.map(taskId => (
-          initialData.tasks[taskId as keyof typeof initialData.tasks]
-        ));
-        return (
-          <Grid.Col
-            span={Math.floor(12 / state.columnOrder.length)}
-            key={column.id}
-            sx={{
-              minHeight: '100%',
-            }}
-          >
-            <Column column={column} tasks={tasks} />
-          </Grid.Col>
-        );
-      })}
-      </Grid>
-    </DragDropContext>
+    <Container size="xl">
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Flex
+          direction={{ base: 'column', sm: 'row' }}
+          gap={{ base: 'md', sm: 'lg' }}
+          justify="center"
+          align={{ base: 'center', sm: 'flex-start' }}
+          wrap="nowrap"
+        >
+          {state.columnOrder.map((columnId) => {
+            const column = state.columns[columnId as keyof typeof state.columns];
+            const tasks = column.taskIds.map(taskId => (
+              state.tasks[taskId as keyof typeof state.tasks]
+            ));
+            return (
+              <Stack
+                key={column.id}
+                sx={{
+                  minHeight: '100%',
+                  minWidth: '350px',
+                }}
+              >
+                <Column
+                  key={column.id}
+                  column={column}
+                  tasks={tasks}
+                />
+              </Stack>
+            );
+          })}
+        </Flex>
+      </DragDropContext>
+    </Container>
   );
 };

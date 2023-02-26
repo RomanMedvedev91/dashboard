@@ -1,27 +1,6 @@
 import { IconUser } from '@tabler/icons';
 import { ReactNode } from 'react';
 
-// export const initialData0 = [{
-//   id: 'column1',
-//   title: 'To Do',
-//   cards: [{
-//     id: 'card1',
-//     title: 'Task 1',
-//     labels: [{ color: 'gray', label: 'hold' }],
-//     date: '2023-25-02',
-//     tasks: [{
-//       id: 'card1task1',
-//       completed: false,
-//       text: 'card 1 task 1',
-//     }, {
-//       id: 'card1task2',
-//       completed: false,
-//       text: 'card 1 task 2',
-//     }],
-//     description: 'Task 1 description',
-//   }],
-// }];
-
 export type TaskType = {
   id: string;
   title: string;
