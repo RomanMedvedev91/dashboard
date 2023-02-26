@@ -29,22 +29,24 @@ export const Column = ({ column, tasks }: IColumnProps) => (
     </Title>
     <Droppable droppableId={column.id}>
       {(provided, snapshot) => (
-        <Stack
-          ref={provided.innerRef}
-          {...provided.droppableProps}
-          pt="md"
-          sx={(theme) => ({
-            backgroundColor: snapshot.isDraggingOver ? (
-              theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[1]) : 'white',
-            flexGrow: 1,
-            minHeight: 100,
-          })}
-        >
-          {tasks.map((task, index) => (
-          <Task key={task.id} task={task} index={index} />
-          ))}
-          {provided.placeholder}
-        </Stack>
+        <>
+          <Stack
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            pt="md"
+            sx={(theme) => ({
+              backgroundColor: snapshot.isDraggingOver ? (
+                theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[1]) : 'white',
+              flexGrow: 1,
+              minHeight: 100,
+            })}
+          >
+            {tasks.map((task, index) => (
+              <Task key={task.id} task={task} index={index} />
+            ))}
+            {provided.placeholder}
+          </Stack>
+        </>
       )}
     </Droppable>
   </Card>
